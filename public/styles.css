@@ -1,0 +1,133 @@
+/* --- Estilos Generales --- */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin: 80px auto 20px auto; /* Aumentado el margen superior para dejar espacio a la navbar */
+  width: 90%;
+  max-width: 800px;
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+input[type="text"], button {
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#video, #canvas {
+  display: block; /* Asegura que ocupe su propia línea */
+  margin: 15px auto; /* Añade margen vertical y centra horizontalmente */
+  border: 1px solid #ddd;
+  border-radius: 8px; /* Opcional: suaviza las esquinas */
+  max-width: 100%;
+}
+
+/* --- Estilos de Navegación --- */
+.navbar {
+  width: 100%;
+  background-color: #333;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  position: fixed; /* Fija la barra en la parte superior */
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.navbar .nav-brand {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.navbar ul {
+  float: right;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar ul li {
+  float: left;
+}
+
+.navbar ul li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.navbar ul li a:hover {
+  background-color: #575757;
+}
+
+
+/* --- Estilos de Tablas --- */
+table {
+  width: 100%;
+  border-collapse: collapse; /* Une los bordes de las celdas */
+  margin-top: 20px;
+}
+
+table thead {
+  background-color: #007bff;
+  color: white;
+}
+
+table th, table td {
+  padding: 12px 15px; /* Más espaciado interno */
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #f2f2f2; /* Colorea filas pares para mejor legibilidad */
+}
+
+table tbody tr:hover {
+  background-color: #e2e2e2; /* Efecto al pasar el ratón */
+}
+
+table .view-btn {
+    width: auto;
+    padding: 8px 12px;
+    font-size: 0.9em;
+}

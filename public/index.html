@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Biblioteca - Inicio</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        
+        .menu-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px; 
+            margin-top: 30px;
+        }
+        .menu-button {
+            display: block;
+            width: 80%;
+            max-width: 300px;
+            padding: 15px;
+            font-size: 1.1em;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .menu-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="nav-brand">Sistema Biblioteca</a>
+        <ul>
+            <li><a href="registro_estudiantes.html">Registrar</a></li>
+            <li><a href="panel.html">Ver Estudiantes</a></li>
+            <li><a href="logs.html">Ver Accesos</a></li>
+            <li><a href="biblioteca.html">Control de Acceso</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Bienvenido al Sistema de Gestión de la Biblioteca</h1>
+        <p>Selecciona una opción para comenzar:</p>
+        <div class="menu-container">
+            <a href="registro_estudiantes.html" class="menu-button">Registrar Nuevo Estudiante</a>
+            <a href="panel.html" class="menu-button">Ver Panel de Estudiantes</a>
+            <a href="logs.html" class="menu-button">Ver Registros de Acceso</a>
+            <a href="biblioteca.html" class="menu-button">Iniciar Control de Acceso</a>
+        </div>
+    </div>
+</body>
+</html>

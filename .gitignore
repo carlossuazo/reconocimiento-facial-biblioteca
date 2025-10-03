@@ -1,0 +1,8 @@
+# Dependencias de Node
+node_modules/
+
+# Fotos subidas por los usuarios
+uploads/
+
+# Archivos de sistema operativo
+.DS_Store
