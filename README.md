@@ -29,7 +29,7 @@ Sigue estos pasos para configurar y ejecutar el proyecto en tu entorno local.
 
 ### **1. Prerrequisitos (Instalación de Herramientas)**
 
-Asegúrate de tener instaladas las siguientes herramientas en tu sistema:
+Debes tener instaladas las siguientes herramientas en tu sistema:
 
 * **Node.js:** (Versión 14 o superior) - [Descargar Node.js](https://nodejs.org/)
 * **PostgreSQL:** (Versión 12 o superior) - [Descargar PostgreSQL](https://www.postgresql.org/download/)
@@ -40,7 +40,6 @@ Asegúrate de tener instaladas las siguientes herramientas en tu sistema:
 Es necesario crear una base de datos y un usuario para que la aplicación pueda conectarse.
 
 1.  **Abre la terminal de PostgreSQL (`psql`):**
-    Puede que necesites hacerlo como superusuario (`sudo -u postgres psql`).
 
 2.  **Ejecuta los siguientes comandos SQL** para crear la base de datos y el usuario. Reemplaza `tu_usuario` y `tu_contraseña` por las credenciales que prefieras:
 
