@@ -69,7 +69,7 @@ Es necesario crear una base de datos y un usuario para que la aplicación pueda 
     npm install
     ```
 
-3.  **Descarga los modelos de `face-api.js`: (Los modelos ya están incluidos)**
+3.  **Descarga los modelos de `face-api.js` (Los modelos ya están incluidos):**
     * Ve al repositorio de `face-api.js` en la sección de [pesos (weights)](https://github.com/justadudewhohacks/face-api.js/tree/master/weights).
     * Descarga todos los archivos de esa carpeta.
     * Crea la siguiente estructura de carpetas: `public/models`.
