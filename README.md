@@ -59,7 +59,7 @@ Es necesario crear una base de datos y un usuario para que la aplicación pueda 
 1.  **Clona el repositorio:**
     Abre una terminal normal (no la de `psql`) y ejecuta:
     ```bash
-    git clone [https://github.com/carlossuazo/reconocimiento-facial-biblioteca.git](https://github.com/carlossuazo/reconocimiento-facial-biblioteca.git)
+    git clone https://github.com/carlossuazo/reconocimiento-facial-biblioteca.git
     cd reconocimiento-facial-biblioteca
     ```
 
