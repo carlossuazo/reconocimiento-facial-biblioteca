@@ -4,7 +4,7 @@ Este es un proyecto de aplicación web full-stack diseñado para gestionar y aut
 
 ---
 
-## Características Principales
+## Características
 
 * **Registro de Estudiantes:** Captura de datos y foto a través de la cámara web.
 * **Reconocimiento Facial en Tiempo Real:** Utiliza `face-api.js` para identificar estudiantes.
