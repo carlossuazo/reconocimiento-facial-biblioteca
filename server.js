@@ -90,7 +90,7 @@ app.get('/logs', async (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.redirect('/idex.html');
+    res.redirect('/index.html');
 });
 
 app.listen(port, () => {
