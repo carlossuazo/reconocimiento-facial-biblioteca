@@ -20,80 +20,124 @@ Este es un proyecto de aplicación web full-stack diseñado para gestionar y aut
 * **Frontend:** HTML5, CSS3, JavaScript (Vanilla)
 * **Reconocimiento Facial:** `face-api.js`
 * **Base de Datos:** PostgreSQL
+* **Contenedores:** Docker y Docker Compose
 
 ---
 
 ## 🛠️ Instalación y Puesta en Marcha
 
-Sigue estos pasos para configurar y ejecutar el proyecto en tu entorno local.
+Hay dos formas de levantar el proyecto: con **Docker** (recomendada, todo automático) o con una **instalación local** de Node y PostgreSQL en tu máquina.
 
-### **1. Prerrequisitos (Instalación de Herramientas)**
+### Configuración común: variables de entorno
 
-Debes tener instaladas las siguientes herramientas en tu sistema:
+Tanto la aplicación como la base de datos leen su configuración de un archivo `.env` en la raíz del proyecto. Copiá la plantilla incluida y ajustá los valores:
 
-* **Node.js:** (Versión 14 o superior) - [Descargar Node.js](https://nodejs.org/)
-* **PostgreSQL:** (Versión 12 o superior) - [Descargar PostgreSQL](https://www.postgresql.org/download/)
-* **Git:** Para clonar el repositorio - [Descargar Git](https://git-scm.com/downloads)
+```bash
+cp .env.example .env
+```
 
-### **2. Configuración de la Base de Datos**
+| Variable | Descripción | Ejemplo |
+| --- | --- | --- |
+| `DB_USER` | Usuario de PostgreSQL | `postgres` |
+| `DB_PASSWORD` | Contraseña de PostgreSQL | `123456` |
+| `DB_NAME` | Nombre de la base de datos | `biblioteca_db` |
+| `DB_HOST` | Host de la base (para ejecución local) | `localhost` |
+| `DB_PORT` | Puerto de la base en tu máquina | `5434` |
+| `PORT` | Puerto donde escucha la aplicación | `3002` |
 
-Es necesario crear una base de datos y un usuario para que la aplicación pueda conectarse.
+> El archivo `.env` está ignorado por git para no exponer credenciales. **Nunca lo subas al repositorio.**
 
-1.  **Abre la terminal de PostgreSQL (`psql`):**
+---
 
-2.  **Ejecuta los siguientes comandos SQL** para crear la base de datos y el usuario. Reemplaza `tu_usuario` y `tu_contraseña` por las credenciales que prefieras:
+### Opción A: Con Docker (recomendada)
 
-    ```sql
-    -- Crear un nuevo usuario (rol) con contraseña
-    CREATE USER tu_usuario WITH ENCRYPTED PASSWORD 'tu_contraseña';
+Levanta la base de datos y la aplicación juntas con un solo comando. No necesitás instalar Node ni PostgreSQL.
 
-    -- Crear la base de datos
-    CREATE DATABASE biblioteca_db;
+**Prerrequisitos:** [Docker y Docker Compose](https://docs.docker.com/get-docker/).
 
-    -- Otorgar todos los privilegios de la base de datos al nuevo usuario
-    GRANT ALL PRIVILEGES ON DATABASE biblioteca_db TO tu_usuario;
-    ```
-
-### **3. Puesta en Marcha del Proyecto**
-
-1.  **Clona el repositorio:**
-    Abre una terminal normal (no la de `psql`) y ejecuta:
+1.  **Cloná el repositorio:**
     ```bash
     git clone https://github.com/carlossuazo/reconocimiento-facial-biblioteca.git
     cd reconocimiento-facial-biblioteca
     ```
 
-2.  **Instala las dependencias del proyecto:**
-    Este comando leerá el archivo `package.json` y descargará todas las librerías necesarias (Express, pg, etc.).
+2.  **Creá tu archivo `.env`** (ver sección anterior):
+    ```bash
+    cp .env.example .env
+    ```
+
+3.  **Levantá todo el stack:**
+    ```bash
+    docker compose up -d --build
+    ```
+
+Esto construye la imagen de la app, levanta PostgreSQL con un volumen persistente y arranca el servidor. La aplicación queda disponible en **http://localhost:3002** (o el puerto que definas en `PORT`).
+
+**Comandos útiles:**
+```bash
+docker compose ps           # ver estado de los contenedores
+docker compose logs -f app  # ver logs de la app en vivo
+docker compose down         # detener el stack (los datos persisten)
+docker compose down -v      # detener y BORRAR los datos de la base
+```
+
+> Dentro de la red de Docker la app se conecta a la base por el nombre de servicio `db` en el puerto interno `5432`. Esos valores se sobreescriben automáticamente en `docker-compose.yml`, así que no necesitás tocar `DB_HOST`/`DB_PORT` del `.env` para esto.
+
+---
+
+### Opción B: Instalación local (sin Docker)
+
+**Prerrequisitos:**
+
+* **Node.js** (versión 14 o superior) - [Descargar](https://nodejs.org/)
+* **PostgreSQL** (versión 12 o superior) - [Descargar](https://www.postgresql.org/download/)
+* **Git** - [Descargar](https://git-scm.com/downloads)
+
+1.  **Cloná el repositorio:**
+    ```bash
+    git clone https://github.com/carlossuazo/reconocimiento-facial-biblioteca.git
+    cd reconocimiento-facial-biblioteca
+    ```
+
+2.  **Instalá las dependencias:**
     ```bash
     npm install
     ```
 
-3.  **Descarga los modelos de `face-api.js` (Los modelos ya están incluidos):**
-    * Ve al repositorio de `face-api.js` en la sección de [pesos (weights)](https://github.com/justadudewhohacks/face-api.js/tree/master/weights).
-    * Descarga todos los archivos de esa carpeta.
-    * Crea la siguiente estructura de carpetas: `public/models`.
-    * **Coloca todos los archivos descargados dentro de la carpeta `public/models`**.
+3.  **Creá la base de datos.** Abrí la terminal de PostgreSQL (`psql`) y ejecutá:
+    ```sql
+    CREATE DATABASE biblioteca_db;
+    ```
+    Las tablas (`estudiantes`, `logs_acceso`) se crean automáticamente al arrancar el servidor.
 
-4.  **Configura la conexión a la base de datos:**
-    * Abre el archivo `db.js` en tu editor de código.
-    * Modifica el objeto `Pool` con el usuario y la contraseña que creaste en el paso anterior.
-    ```javascript
-    const pool = new Pool({
-      user: 'tu_usuario_postgres', // TU USUARIO CREADO
-      host: 'localhost',
-      database: 'biblioteca_db',
-      password: 'tu_contraseña_postgres', // TU CONTRASEÑA
-      port: 5432,
-    });
+4.  **Configurá tu archivo `.env`** apuntando a tu PostgreSQL local — normalmente `DB_HOST=localhost` y `DB_PORT=5432`.
+
+5.  **Creá la carpeta `uploads`** en la raíz del proyecto (ahí se guardan las fotos de los estudiantes):
+    ```bash
+    mkdir -p uploads
     ```
 
-5.  **Crea la carpeta `uploads`:**
-    En la raíz del proyecto, crea una carpeta llamada `uploads`. Aquí se guardarán las fotos de los estudiantes.
+6.  **Iniciá el servidor:**
+    ```bash
+    npm start
+    ```
 
-### **4. Ejecución del Proyecto**
+La aplicación queda disponible en **http://localhost:3002** (o el puerto definido en `PORT`).
 
-Una vez completada la configuración, inicia el servidor:
+---
+
+### Modelos de `face-api.js`
+
+Los modelos ya vienen incluidos en el repositorio. Si necesitaras reinstalarlos, descargá los [pesos (weights)](https://github.com/justadudewhohacks/face-api.js/tree/master/weights) y colocá todos los archivos dentro de la carpeta `public/models`.
+
+---
+
+### 💡 Nota sobre conflictos de puertos
+
+Si los puertos `5434` (base) o `3002` (app) ya están en uso por otro proyecto, cambiá `DB_PORT` y/o `PORT` en tu `.env` por puertos libres. Como toda la configuración sale de un solo lugar, no hace falta tocar el código:
 
 ```bash
-npm start
+# Ejemplo: mover la base al 5435 y la app al 3005
+DB_PORT=5435
+PORT=3005
+```
